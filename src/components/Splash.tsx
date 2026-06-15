@@ -1,21 +1,20 @@
 import { TelekomLogo } from './TelekomLogo'
+import { clearAll } from '../state/persistence'
 import { useApp } from '../state/AppContext'
 
 /**
  * Brand splash + login entry. Full-bleed magenta with the centered Telekom logo
- * (Figma node 352:7834) and a CTA that logs the user in: first-time users land
- * on the notification sheet (over the overview), returning users go straight to
- * the overview.
+ * (Figma node 352:7834) and a CTA that logs in. Every entry via the CTA resets
+ * the prototype to a fresh state, so each test participant starts clean, then
+ * lands on the notification sheet.
  */
 export function Splash() {
-  const { state, dispatch } = useApp()
+  const { dispatch } = useApp()
 
   function onStart() {
-    if (state.prefs.state === 'unset') {
-      dispatch({ type: 'SHOW_SHEET' }) // sheet over the overview
-    } else {
-      dispatch({ type: 'SET_SCREEN', screen: 'overview' })
-    }
+    clearAll()
+    dispatch({ type: 'RESET' }) // wipe prefs + event log back to defaults
+    dispatch({ type: 'SHOW_SHEET' }) // fresh sheet over the overview
   }
 
   return (

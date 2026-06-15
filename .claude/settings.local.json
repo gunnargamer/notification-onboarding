@@ -18,7 +18,8 @@
       "Bash(curl -s -o /tmp/tlogo.asset \"https://www.figma.com/api/mcp/asset/7c930742-d765-4812-9a01-0a31c9347b6f\")",
       "Bash(git commit -q -m 'feat: add Telekom brand splash screen from Figma *)",
       "Bash(grep -n \"login | sheet\\\\|screen state\\\\|Login stub\\\\|single \\\\`screen\\\\`\" README.md)",
-      "Bash(git commit -q -m 'feat: splash CTA logs in directly to the sheet; remove login screen *)"
+      "Bash(git commit -q -m 'feat: splash CTA logs in directly to the sheet; remove login screen *)",
+      "Bash(git commit -q -m 'feat: reset prototype on every CTA entry from the splash *)"
     ]
   }
 }
