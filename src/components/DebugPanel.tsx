@@ -67,13 +67,13 @@ export function DebugPanel({
             }}
             className="w-full rounded border border-zinc-300 px-3 py-2 text-left hover:bg-zinc-50"
           >
-            Reset all state (→ unset)
+            Alles zurücksetzen (→ unset)
           </button>
         </section>
 
         <section>
           <h2 className="mb-2 font-bold uppercase tracking-wide text-zinc-500">
-            Force osPermission
+            osPermission erzwingen
           </h2>
           <div className="flex gap-2">
             {OS_OPTIONS.map((opt) => (
@@ -96,7 +96,7 @@ export function DebugPanel({
 
         <section>
           <h2 className="mb-2 font-bold uppercase tracking-wide text-zinc-500">
-            Current state
+            Aktueller Status
           </h2>
           <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-zinc-100 p-3">
             {JSON.stringify(
@@ -110,18 +110,18 @@ export function DebugPanel({
         <section>
           <div className="mb-2 flex items-center justify-between">
             <h2 className="font-bold uppercase tracking-wide text-zinc-500">
-              Event log ({state.events.length})
+              Ereignisprotokoll ({state.events.length})
             </h2>
             <button
               type="button"
               onClick={() => dispatch({ type: 'CLEAR_EVENTS' })}
               className="rounded border border-zinc-300 px-2 py-1 hover:bg-zinc-50"
             >
-              Clear
+              Leeren
             </button>
           </div>
           {state.events.length === 0 ? (
-            <p className="text-zinc-400">Keine Events.</p>
+            <p className="text-zinc-400">Keine Ereignisse.</p>
           ) : (
             <ol className="space-y-1">
               {state.events.map((e, i) => (

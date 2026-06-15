@@ -26,7 +26,7 @@ export function Splash() {
           onClick={onStart}
           className="inline-flex min-h-touch w-full items-center justify-center rounded-pill bg-white px-5 py-3 text-base font-medium text-primary"
         >
-          Get started and login
+          Anmelden und loslegen
         </button>
       </div>
     </div>
