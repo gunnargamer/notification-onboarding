@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(git commit -q --amend -m 'feat: scaffold + step 1 — tokens, phone frame, state machine, persistence *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'feat: step 2 — notification bottom sheet with drag gesture + iOS dialog *)"
     ]
   }
 }
