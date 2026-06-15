@@ -1,7 +1,7 @@
 import { Bug, X } from 'lucide-react'
 import { clearAll } from '../state/persistence'
 import { useApp } from '../state/AppContext'
-import type { OsPermission } from '../state/types'
+import type { FlowMode, OsPermission } from '../state/types'
 
 function fmtTime(ts: number): string {
   try {
@@ -12,6 +12,11 @@ function fmtTime(ts: number): string {
 }
 
 const OS_OPTIONS: OsPermission[] = ['unset', 'granted', 'denied']
+
+const FLOW_OPTIONS: { value: FlowMode; label: string }[] = [
+  { value: 'v1', label: 'V1 · sofort' },
+  { value: 'v2', label: 'V2 · kontextuell' },
+]
 
 export function DebugPanel({
   open,
@@ -96,11 +101,34 @@ export function DebugPanel({
 
         <section>
           <h2 className="mb-2 font-bold uppercase tracking-wide text-zinc-500">
+            Einstieg-Flow
+          </h2>
+          <div className="flex gap-2">
+            {FLOW_OPTIONS.map(({ value, label }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => dispatch({ type: 'SET_FLOW_MODE', value })}
+                className={[
+                  'flex-1 rounded border px-2 py-2 text-left',
+                  state.flowMode === value
+                    ? 'border-zinc-800 bg-zinc-800 text-white'
+                    : 'border-zinc-300 hover:bg-zinc-50',
+                ].join(' ')}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="mb-2 font-bold uppercase tracking-wide text-zinc-500">
             Aktueller Status
           </h2>
           <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-zinc-100 p-3">
             {JSON.stringify(
-              { screen: state.screen, ...state.prefs },
+              { screen: state.screen, flowMode: state.flowMode, ...state.prefs },
               null,
               2,
             )}

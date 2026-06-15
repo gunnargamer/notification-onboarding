@@ -20,7 +20,9 @@
       "Bash(grep -n \"login | sheet\\\\|screen state\\\\|Login stub\\\\|single \\\\`screen\\\\`\" README.md)",
       "Bash(git commit -q -m 'feat: splash CTA logs in directly to the sheet; remove login screen *)",
       "Bash(git commit -q -m 'feat: reset prototype on every CTA entry from the splash *)",
-      "Bash(git commit -q -m 'i18n: German splash CTA + German debug-panel labels *)"
+      "Bash(git commit -q -m 'i18n: German splash CTA + German debug-panel labels *)",
+      "Bash(grep -n \"notif_events\\\\` | append\" README.md)",
+      "Bash(git commit -q -m 'feat: UX-review fixes — real app name, SMS security-only, V1/V2 flow switch *)"
     ]
   }
 }

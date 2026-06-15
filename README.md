@@ -64,6 +64,7 @@ over the overview, and returning users to the overview.
 | `notif_categories` | `Record<CategoryId, boolean>` — master on/off per category |
 | `notif_channels` | `Record<CategoryId, Record<Channel, boolean>>` — channel matrix |
 | `notif_events` | append-only telemetry event log (for test moderators) |
+| `notif_flowmode` | onboarding entry flow for testing: `'v1'` (immediate) or `'v2'` (contextual) |
 
 `CategoryId = billing | service | system | security | offers`,
 `Channel = push | email | sms | inapp`.
@@ -76,8 +77,12 @@ Floating bug button, **bottom-left** (intentionally not part of the design;
 hidden while the sheet/OS dialog is open). It opens a panel that lets a moderator:
 
 - **Reset all state** → back to `unset`; use this **between participants**.
+  (The splash CTA also resets on every entry, so each participant starts clean.)
 - **Force `osPermission`** → `unset` / `granted` / `denied` (e.g. to demo the
   "push disabled on this device" banner).
+- **Einstieg-Flow** → `V1 · sofort` (prompt right after login) vs.
+  `V2 · kontextuell` (sheet appears only after the user opens the Rechnung card
+  on the overview). Survives resets so you can keep one mode for a session.
 - **Show current state** as live JSON.
 - **Event log** — timestamped, append-only list of telemetry events
   (`impression`, `category_toggle`, `enable`, `later`, `os_allow`, `os_deny`,

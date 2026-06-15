@@ -9,12 +9,16 @@ import { useApp } from '../state/AppContext'
  * lands on the notification sheet.
  */
 export function Splash() {
-  const { dispatch } = useApp()
+  const { state, dispatch } = useApp()
 
   function onStart() {
     clearAll()
     dispatch({ type: 'RESET' }) // wipe prefs + event log back to defaults
-    dispatch({ type: 'SHOW_SHEET' }) // fresh sheet over the overview
+    if (state.flowMode === 'v1') {
+      dispatch({ type: 'SHOW_SHEET' }) // V1: prompt immediately, sheet over overview
+    } else {
+      dispatch({ type: 'SET_SCREEN', screen: 'overview' }) // V2: contextual — sheet comes after the user opens the bill
+    }
   }
 
   return (

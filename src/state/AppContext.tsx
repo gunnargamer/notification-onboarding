@@ -7,13 +7,21 @@ import {
   type ReactNode,
 } from 'react'
 import { reducer, type Action, type AppState } from './reducer'
-import { loadEvents, loadPrefs, saveEvents, savePrefs } from './persistence'
+import {
+  loadEvents,
+  loadFlowMode,
+  loadPrefs,
+  saveEvents,
+  saveFlowMode,
+  savePrefs,
+} from './persistence'
 
 function init(): AppState {
   return {
     screen: 'splash',
     prefs: loadPrefs(),
     events: loadEvents(),
+    flowMode: loadFlowMode(),
   }
 }
 
@@ -35,6 +43,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     saveEvents(state.events)
   }, [state.events])
+
+  useEffect(() => {
+    saveFlowMode(state.flowMode)
+  }, [state.flowMode])
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

@@ -3,6 +3,7 @@ import { CATEGORIES } from './catalog'
 import type {
   CategoryId,
   Channel,
+  FlowMode,
   NotifPrefs,
   OsPermission,
   Screen,
@@ -14,6 +15,7 @@ export interface AppState {
   screen: Screen
   prefs: NotifPrefs
   events: TelemetryEvent[]
+  flowMode: FlowMode
 }
 
 export type Action =
@@ -28,6 +30,7 @@ export type Action =
   | { type: 'CHANNEL_TOGGLE'; id: CategoryId; channel: Channel }
   | { type: 'LOG'; name: TelemetryEventName; detail?: Record<string, unknown> }
   | { type: 'FORCE_OS'; value: OsPermission }
+  | { type: 'SET_FLOW_MODE'; value: FlowMode }
   | { type: 'RESET' }
   | { type: 'CLEAR_EVENTS' }
 
@@ -159,8 +162,13 @@ export function reducer(state: AppState, action: Action): AppState {
         prefs: { ...state.prefs, osPermission: action.value },
       }
 
+    case 'SET_FLOW_MODE':
+      return { ...state, flowMode: action.value }
+
     case 'RESET':
       return {
+        // flowMode is a test config — it survives participant resets.
+        flowMode: state.flowMode,
         screen: 'splash',
         prefs: {
           ...DEFAULT_PREFS,

@@ -44,8 +44,14 @@ export function CategoryCard({ id }: { id: CategoryId }) {
     dispatch({ type: 'CHANNEL_TOGGLE', id, channel })
   }
 
+  // SMS is a security-only channel (PRD D12) — hidden in service categories.
+  const visibleChannels = locked
+    ? CHANNEL_ORDER
+    : CHANNEL_ORDER.filter((c) => c !== 'sms')
+
   const activeSummary = masterOn
-    ? CHANNEL_ORDER.filter((c) => channels[c])
+    ? visibleChannels
+        .filter((c) => channels[c])
         .map((c) => CHANNEL_LABELS[c])
         .join(' · ') || 'Keine aktiv'
     : 'Aus'
@@ -102,7 +108,7 @@ export function CategoryCard({ id }: { id: CategoryId }) {
             </p>
           )}
           <ul className="flex flex-col gap-1">
-            {CHANNEL_ORDER.map((channel) => {
+            {visibleChannels.map((channel) => {
               const Icon = CHANNEL_ICON[channel]
               const channelDisabled = !masterOn
               return (

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { APP_NAME } from '../config'
 import { useApp } from '../state/AppContext'
 
 /**
@@ -47,7 +48,7 @@ export function OSDialog() {
       >
         <div className="px-4 pb-4 pt-5">
           <h2 id={titleId} className="text-[17px] font-semibold text-text">
-            OneApp möchte Ihnen Mitteilungen senden
+            „{APP_NAME}“ möchte Ihnen Mitteilungen senden
           </h2>
           <p id={bodyId} className="mt-1 text-[13px] leading-snug text-text">
             Mitteilungen können Hinweise, Töne und Kennzeichen enthalten. Sie

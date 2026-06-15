@@ -1,5 +1,5 @@
 import { DEFAULT_PREFS } from './defaults'
-import type { CategoryId, NotifPrefs, TelemetryEvent } from './types'
+import type { CategoryId, FlowMode, NotifPrefs, TelemetryEvent } from './types'
 
 export const KEYS = {
   state: 'notif_state',
@@ -7,6 +7,7 @@ export const KEYS = {
   categories: 'notif_categories',
   channels: 'notif_channels',
   events: 'notif_events',
+  flowMode: 'notif_flowmode',
 } as const
 
 function readJSON<T>(key: string, fallback: T): T {
@@ -46,6 +47,18 @@ export function savePrefs(prefs: NotifPrefs): void {
     localStorage.setItem(KEYS.channels, JSON.stringify(prefs.channels))
   } catch {
     // best-effort; prototype only
+  }
+}
+
+export function loadFlowMode(): FlowMode {
+  return readJSON<FlowMode>(KEYS.flowMode, 'v1')
+}
+
+export function saveFlowMode(mode: FlowMode): void {
+  try {
+    localStorage.setItem(KEYS.flowMode, JSON.stringify(mode))
+  } catch {
+    // best-effort
   }
 }
 
