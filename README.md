@@ -23,12 +23,19 @@ centered phone frame.
 
 ## State machine
 
+The brand **splash** is the launch screen and login entry. Its CTA
+„Get started and login" routes first-time users (`unset`) straight to the sheet
+over the overview, and returning users to the overview.
+
 ```
-                       ┌──────────────── reload ───────────────┐
-                       │  (sheet never reappears once decided)  │
-                       ▼                                        │
-  [unset] ──Anmelden──▶ sheet shown once                       │
-                       │                                        │
+  [splash] ──„Get started and login"──┐
+                                       │
+                       ┌──────── reload ────────┐
+                       │ (sheet never reappears  │
+                       │      once decided)      │
+                       ▼                         │
+  [unset] ─────────────▶ sheet shown once       │
+                       │                         │
         ┌──────────────┼─────────────────────────┐             │
         │              │                          │            (persisted
    „Später" /      „Aktivieren"              (category          state)
@@ -95,7 +102,7 @@ the real design system, replace `tokens.css` and the thin UI wrappers with their
 
 Vite · React 18 · TypeScript · Tailwind CSS · lucide-react. State via React
 context + reducer, persisted to `localStorage`. No router — a single `screen`
-state (`login | sheet | os-dialog | overview | settings`) drives navigation.
+state (`splash | sheet | os-dialog | overview | settings`) drives navigation.
 
 ## Out of scope for P1
 
