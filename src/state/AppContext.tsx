@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import { reducer, type Action, type AppState } from './reducer'
+import type { FlowMode } from './types'
 import {
   loadEvents,
   loadFlowMode,
@@ -16,12 +17,22 @@ import {
   savePrefs,
 } from './persistence'
 
+/** Optional ?flow=v1|v2 override for moderators (persisted once set). */
+function readFlowOverride(): FlowMode | null {
+  try {
+    const f = new URLSearchParams(window.location.search).get('flow')
+    return f === 'v1' || f === 'v2' ? f : null
+  } catch {
+    return null
+  }
+}
+
 function init(): AppState {
   return {
     screen: 'splash',
     prefs: loadPrefs(),
     events: loadEvents(),
-    flowMode: loadFlowMode(),
+    flowMode: readFlowOverride() ?? loadFlowMode(),
   }
 }
 

@@ -71,23 +71,25 @@ over the overview, and returning users to the overview.
 
 Security is always active (locked master) and must keep at least one channel on.
 
-## Debug panel (for test moderators)
+## For test moderators
 
-Floating bug button, **bottom-left** (intentionally not part of the design;
-hidden while the sheet/OS dialog is open). It opens a panel that lets a moderator:
+There is no in-app debug panel. The moderator workflow is:
 
-- **Reset all state** → back to `unset`; use this **between participants**.
-  (The splash CTA also resets on every entry, so each participant starts clean.)
-- **Force `osPermission`** → `unset` / `granted` / `denied` (e.g. to demo the
-  "push disabled on this device" banner).
-- **Einstieg-Flow** → `V1 · sofort` (prompt right after login) vs.
-  `V2 · kontextuell` (sheet appears only after the user opens the Rechnung card
-  on the overview). Survives resets so you can keep one mode for a session.
-- **Show current state** as live JSON.
-- **Event log** — timestamped, append-only list of telemetry events
-  (`impression`, `category_toggle`, `enable`, `later`, `os_allow`, `os_deny`,
-  `settings_master_toggle`, `settings_channel_toggle`, `settings_expand`,
-  `os_banner_tap`). Clearable.
+- **Reset between participants** → automatic. The splash CTA „Anmelden und
+  loslegen" wipes prefs + event log on every entry, so each participant starts
+  from a clean `unset` state.
+- **Onboarding entry flow** → append a URL parameter:
+  - `?flow=v1` — prompt immediately after login (default)
+  - `?flow=v2` — contextual: the sheet appears only after the user opens the
+    Rechnung card on the overview
+  The choice persists (localStorage `notif_flowmode`) until changed again.
+- **Telemetry / event log** → persisted append-only in localStorage under
+  `notif_events` (`impression`, `category_toggle`, `enable`, `later`,
+  `os_allow`, `os_deny`, `settings_master_toggle`, `settings_channel_toggle`,
+  `settings_expand`, `os_banner_tap`). Read it from the browser devtools
+  console: `JSON.parse(localStorage.getItem('notif_events'))`.
+- **OS-denied banner** → reachable by tapping „Nicht erlauben" in the OS dialog
+  (sets `osPermission = denied`).
 
 ## Token-swap note (real ODS later)
 

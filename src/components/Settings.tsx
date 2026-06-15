@@ -3,7 +3,7 @@ import { CATEGORY_ORDER } from '../state/defaults'
 import { CategoryCard } from './CategoryCard'
 import { useApp } from '../state/AppContext'
 
-export function Settings({ onOpenDeviceSettings }: { onOpenDeviceSettings: () => void }) {
+export function Settings() {
   const { state, dispatch } = useApp()
   const denied = state.prefs.osPermission === 'denied'
 
@@ -34,10 +34,7 @@ export function Settings({ onOpenDeviceSettings }: { onOpenDeviceSettings: () =>
             </p>
             <button
               type="button"
-              onClick={() => {
-                dispatch({ type: 'LOG', name: 'os_banner_tap' })
-                onOpenDeviceSettings()
-              }}
+              onClick={() => dispatch({ type: 'LOG', name: 'os_banner_tap' })}
               className="mt-3 inline-flex min-h-touch items-center rounded-pill bg-white px-4 py-2 text-base font-medium text-text"
             >
               Einstellungen öffnen

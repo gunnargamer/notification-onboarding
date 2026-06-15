@@ -22,7 +22,8 @@
       "Bash(git commit -q -m 'feat: reset prototype on every CTA entry from the splash *)",
       "Bash(git commit -q -m 'i18n: German splash CTA + German debug-panel labels *)",
       "Bash(grep -n \"notif_events\\\\` | append\" README.md)",
-      "Bash(git commit -q -m 'feat: UX-review fixes — real app name, SMS security-only, V1/V2 flow switch *)"
+      "Bash(git commit -q -m 'feat: UX-review fixes — real app name, SMS security-only, V1/V2 flow switch *)",
+      "Bash(git commit -q -m 'chore: remove in-app debug panel *)"
     ]
   }
 }

@@ -5,7 +5,6 @@ import type {
   Channel,
   FlowMode,
   NotifPrefs,
-  OsPermission,
   Screen,
   TelemetryEvent,
   TelemetryEventName,
@@ -29,10 +28,7 @@ export type Action =
   | { type: 'MASTER_TOGGLE'; id: CategoryId }
   | { type: 'CHANNEL_TOGGLE'; id: CategoryId; channel: Channel }
   | { type: 'LOG'; name: TelemetryEventName; detail?: Record<string, unknown> }
-  | { type: 'FORCE_OS'; value: OsPermission }
-  | { type: 'SET_FLOW_MODE'; value: FlowMode }
   | { type: 'RESET' }
-  | { type: 'CLEAR_EVENTS' }
 
 function log(
   state: AppState,
@@ -156,15 +152,6 @@ export function reducer(state: AppState, action: Action): AppState {
     case 'LOG':
       return { ...state, events: log(state, action.name, action.detail) }
 
-    case 'FORCE_OS':
-      return {
-        ...state,
-        prefs: { ...state.prefs, osPermission: action.value },
-      }
-
-    case 'SET_FLOW_MODE':
-      return { ...state, flowMode: action.value }
-
     case 'RESET':
       return {
         // flowMode is a test config — it survives participant resets.
@@ -183,9 +170,6 @@ export function reducer(state: AppState, action: Action): AppState {
         },
         events: [],
       }
-
-    case 'CLEAR_EVENTS':
-      return { ...state, events: [] }
 
     default:
       return state
