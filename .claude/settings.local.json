@@ -4,7 +4,8 @@
       "Bash(npm run *)",
       "Bash(git commit -q --amend -m 'feat: scaffold + step 1 — tokens, phone frame, state machine, persistence *)",
       "Bash(git add *)",
-      "Bash(git commit -q -m 'feat: step 2 — notification bottom sheet with drag gesture + iOS dialog *)"
+      "Bash(git commit -q -m 'feat: step 2 — notification bottom sheet with drag gesture + iOS dialog *)",
+      "Bash(git commit -q -m 'feat: step 3 — Settings page with cards, expand, channel matrix, security lock, denied banner *)"
     ]
   }
 }
