@@ -1,0 +1,18 @@
+/*
+ * Mock ODS token layer.
+ * This file is the swap-in point for the real @telekom-ods/react-ui-kit later.
+ * Components reference these ONLY via the Tailwind config — never hardcode values.
+ */
+:root[data-mode='light'] {
+  --color-primary: #E20074;        /* Magenta — primary CTAs and accents ONLY, never body text */
+  --color-text: #191919;
+  --color-text-secondary: #6B6B6B;
+  --color-surface: #FFFFFF;
+  --color-card: #F1F1F1;           /* card surfaces: rounded-2xl, no border, no shadow */
+  --color-backdrop: rgba(0, 0, 0, 0.5);
+  --radius-pill: 72px;             /* all buttons */
+  --radius-card: 16px;
+  --radius-sheet: 16px;            /* sheet top corners */
+  --spacing-button-gap: 12px;
+  --touch-target-min: 44px;
+}
