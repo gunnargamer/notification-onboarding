@@ -27,7 +27,8 @@
       "mcp__plugin_figma_figma__get_screenshot",
       "Bash(curl -s -o /tmp/overview_figma.png \"https://www.figma.com/api/mcp/asset/aa363e8a-9cb5-451d-8613-0672809bb82b\")",
       "Bash(git commit -q -m 'feat: rich MeinMagenta home screen from Figma \\(node 321:17657\\) *)",
-      "Bash(git commit -q -m 'copy: drop '\\\\''z. B. „…“'\\\\'' framing from sheet sublines *)"
+      "Bash(git commit -q -m 'copy: drop '\\\\''z. B. „…“'\\\\'' framing from sheet sublines *)",
+      "Bash(git commit -q -m 'copy: generalize sheet sublines to category descriptions *)"
     ]
   }
 }

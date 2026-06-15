@@ -15,32 +15,32 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
     id: 'billing',
     title: 'Rechnungen & Zahlungen',
     description: 'Benachrichtigungen zu Rechnungen und Zahlungserinnerungen',
-    scenario: 'Ihre Rechnung für Oktober ist da.',
+    scenario: 'Rechnungen und Zahlungserinnerungen',
   },
   service: {
     id: 'service',
     title: 'Service & Tarif',
     description: 'Updates zu Ihrem Tarif und Datenverbrauch',
-    scenario: 'Ihr Datenvolumen ist fast aufgebraucht.',
+    scenario: 'Updates zu Tarif und Datenverbrauch',
   },
   system: {
     id: 'system',
     title: 'System & Wartung',
     description: 'Informationen zu Wartungsarbeiten und Störungen',
-    scenario: 'Störung in Ihrer Region behoben.',
+    scenario: 'Wartungsarbeiten und Störungen',
   },
   security: {
     id: 'security',
     title: 'Konto & Sicherheit',
     description: 'Wichtige Informationen zu Ihrem Konto',
-    scenario: 'Neue Anmeldung auf Ihrem Konto.',
+    scenario: 'Wichtige Hinweise zu Ihrem Konto',
     locked: true,
   },
   offers: {
     id: 'offers',
     title: 'Angebote & Empfehlungen',
     description: 'Personalisierte Angebote und Empfehlungen',
-    scenario: 'Nur wenn Sie möchten.',
+    scenario: 'Persönliche Angebote und Empfehlungen',
   },
 }
 
