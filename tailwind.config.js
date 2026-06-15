@@ -10,6 +10,7 @@ export default {
         'text-secondary': 'var(--color-text-secondary)',
         surface: 'var(--color-surface)',
         card: 'var(--color-card)',
+        banner: 'var(--color-banner)',
         backdrop: 'var(--color-backdrop)',
       },
       borderRadius: {

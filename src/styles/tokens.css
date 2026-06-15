@@ -9,6 +9,7 @@
   --color-text-secondary: #6B6B6B;
   --color-surface: #FFFFFF;
   --color-card: #F1F1F1;           /* card surfaces: rounded-2xl, no border, no shadow */
+  --color-banner: #4DD1E0;         /* promo banner surface (cyan) */
   --color-backdrop: rgba(0, 0, 0, 0.5);
   --radius-pill: 72px;             /* all buttons */
   --radius-card: 16px;
