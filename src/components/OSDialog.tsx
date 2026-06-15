@@ -7,18 +7,38 @@ import { useApp } from '../state/AppContext'
  */
 export function OSDialog() {
   const { dispatch } = useApp()
+  const dialogRef = useRef<HTMLDivElement>(null)
   const allowRef = useRef<HTMLButtonElement>(null)
   const titleId = 'os-dialog-title'
   const bodyId = 'os-dialog-body'
 
   useEffect(() => {
     allowRef.current?.focus()
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key !== 'Tab') return
+      const panel = dialogRef.current
+      if (!panel) return
+      const focusable = panel.querySelectorAll<HTMLElement>('button:not([disabled])')
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
   return (
     <div className="pointer-events-auto absolute inset-0 z-40 flex items-center justify-center px-10">
       <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
       <div
+        ref={dialogRef}
         role="alertdialog"
         aria-modal="true"
         aria-labelledby={titleId}

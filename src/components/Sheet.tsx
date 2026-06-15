@@ -19,6 +19,10 @@ export function Sheet() {
   const dragging = useRef(false)
   const startY = useRef(0)
 
+  // Track the live screen so the trap yields while the OS dialog is on top.
+  const screenRef = useRef(state.screen)
+  screenRef.current = state.screen
+
   // Slide up on mount.
   useEffect(() => {
     const r = requestAnimationFrame(() => setEntered(true))
@@ -33,6 +37,8 @@ export function Sheet() {
         e.preventDefault() // accidental-dismiss protection
         return
       }
+      // The OS dialog owns focus while it is open.
+      if (screenRef.current !== 'sheet') return
       if (e.key !== 'Tab') return
       const panel = panelRef.current
       if (!panel) return

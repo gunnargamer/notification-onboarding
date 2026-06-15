@@ -16,13 +16,17 @@ const OS_OPTIONS: OsPermission[] = ['unset', 'granted', 'denied']
 export function DebugPanel({
   open,
   onOpenChange,
+  launcherHidden = false,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
+  /** Hide the floating launcher while an overlay (sheet/dialog) is on top. */
+  launcherHidden?: boolean
 }) {
   const { state, dispatch } = useApp()
 
   if (!open) {
+    if (launcherHidden) return null
     return (
       <button
         type="button"

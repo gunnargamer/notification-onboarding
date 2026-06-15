@@ -44,7 +44,11 @@ export default function App() {
 
       {overlayRoot &&
         createPortal(
-          <DebugPanel open={debugOpen} onOpenChange={setDebugOpen} />,
+          <DebugPanel
+            open={debugOpen}
+            onOpenChange={setDebugOpen}
+            launcherHidden={overlayActive}
+          />,
           overlayRoot,
         )}
     </PhoneFrame>

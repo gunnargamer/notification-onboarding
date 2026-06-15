@@ -6,7 +6,9 @@
       "Bash(git add *)",
       "Bash(git commit -q -m 'feat: step 2 — notification bottom sheet with drag gesture + iOS dialog *)",
       "Bash(git commit -q -m 'feat: step 3 — Settings page with cards, expand, channel matrix, security lock, denied banner *)",
-      "Bash(git commit -q -m 'feat: step 4 — login/overview stubs, debug panel, event log *)"
+      "Bash(git commit -q -m 'feat: step 4 — login/overview stubs, debug panel, event log *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git commit -q -m 'feat: step 5 — acceptance pass, focus-trap fixes, README *)"
     ]
   }
 }
