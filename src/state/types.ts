@@ -11,7 +11,13 @@ export type Channel = 'push' | 'email' | 'sms' | 'inapp'
 
 export type CategoryId = 'billing' | 'service' | 'system' | 'security' | 'offers'
 
-export type Screen = 'login' | 'sheet' | 'os-dialog' | 'overview' | 'settings'
+export type Screen =
+  | 'splash'
+  | 'login'
+  | 'sheet'
+  | 'os-dialog'
+  | 'overview'
+  | 'settings'
 
 export interface NotifPrefs {
   state: NotifState // localStorage key: notif_state

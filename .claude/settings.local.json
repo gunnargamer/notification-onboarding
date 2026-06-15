@@ -9,7 +9,14 @@
       "Bash(git commit -q -m 'feat: step 4 — login/overview stubs, debug panel, event log *)",
       "mcp__Claude_Preview__preview_start",
       "Bash(git commit -q -m 'feat: step 5 — acceptance pass, focus-trap fixes, README *)",
-      "Bash(git commit -q -m 'chore: add Vercel config + set data-mode in HTML for first paint *)"
+      "Bash(git commit -q -m 'chore: add Vercel config + set data-mode in HTML for first paint *)",
+      "Bash(curl -s -o /tmp/splash.png \"https://www.figma.com/api/mcp/asset/2103dc56-9e06-47b4-bfb5-ad18d1104f44\")",
+      "Read(//tmp/**)",
+      "mcp__plugin_figma_figma__get_variable_defs",
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__get_design_context",
+      "Bash(curl -s -o /tmp/tlogo.asset \"https://www.figma.com/api/mcp/asset/7c930742-d765-4812-9a01-0a31c9347b6f\")",
+      "Bash(git commit -q -m 'feat: add Telekom brand splash screen from Figma *)"
     ]
   }
 }

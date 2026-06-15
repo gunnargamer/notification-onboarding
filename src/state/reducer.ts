@@ -161,7 +161,7 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'RESET':
       return {
-        screen: 'login',
+        screen: 'splash',
         prefs: {
           ...DEFAULT_PREFS,
           categories: { ...DEFAULT_PREFS.categories },

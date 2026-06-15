@@ -11,7 +11,7 @@ import { loadEvents, loadPrefs, saveEvents, savePrefs } from './persistence'
 
 function init(): AppState {
   return {
-    screen: 'login',
+    screen: 'splash',
     prefs: loadPrefs(),
     events: loadEvents(),
   }
