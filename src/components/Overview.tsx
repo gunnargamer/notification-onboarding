@@ -118,10 +118,14 @@ export function Overview() {
 
         {/* Promo banner */}
         <div>
-          <div className="relative flex h-[120px] items-center overflow-hidden rounded-2xl bg-banner py-3 pl-6 pr-[144px]">
+          <div className="relative flex h-[120px] flex-col justify-center overflow-hidden rounded-2xl bg-banner py-3 pl-6 pr-[144px]">
             <p className="text-base font-bold leading-tight text-text">
-              Neues Apple iPhone 16 mit drei Kameras und frischen Farben. Jetzt im
-              Shop ausprobieren und direkt in der App bestellen.
+              iPhone 16 entdecken
+            </p>
+            <p className="mt-1 text-sm leading-snug text-text">
+              Drei Kameras. Frische Farben.
+              <br />
+              Direkt in der App bestellen.
             </p>
             <img
               src={promoUrl}
