@@ -25,6 +25,10 @@ export interface NotifPrefs {
   osPermission: OsPermission // simulated; key: notif_os
   categories: Record<CategoryId, boolean> // key: notif_categories
   channels: Record<CategoryId, Record<Channel, boolean>> // key: notif_channels
+  // Snapshot of the categories the user opted into at the moment they first
+  // granted permission. Frozen — shown later in the notification overview.
+  // null until the initial opt-in happens. key: notif_initial_optin
+  initialOptIn: Record<CategoryId, boolean> | null
 }
 
 export type TelemetryEventName =

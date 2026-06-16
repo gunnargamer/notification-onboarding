@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Check } from 'lucide-react'
 import { CATEGORY_ORDER } from '../state/defaults'
 import { CATEGORIES } from '../state/catalog'
 import { CategoryCard } from './CategoryCard'
@@ -7,6 +7,14 @@ import { useApp } from '../state/AppContext'
 export function Settings() {
   const { state, dispatch } = useApp()
   const denied = state.prefs.osPermission === 'denied'
+
+  // The categories the user chose at their initial opt-in (frozen snapshot).
+  const initialOptIn = state.prefs.initialOptIn
+  const initialTitles = initialOptIn
+    ? CATEGORY_ORDER.filter(
+        (id) => !CATEGORIES[id].locked && initialOptIn[id],
+      ).map((id) => CATEGORIES[id].title)
+    : []
 
   function handleBack() {
     // Leaving Settings with a category enabled but no OS permission yet → the
@@ -40,6 +48,35 @@ export function Settings() {
         <p className="text-sm text-text-secondary">
           Legen Sie fest, worüber und wie wir Sie informieren.
         </p>
+
+        {initialOptIn && (
+          <div className="mt-4 rounded-2xl bg-card p-4">
+            <p className="text-sm font-bold text-text">
+              Bei der Aktivierung gewählt
+            </p>
+            {initialTitles.length > 0 ? (
+              <ul className="mt-2 flex flex-col gap-1.5">
+                {initialTitles.map((title) => (
+                  <li
+                    key={title}
+                    className="flex items-center gap-2 text-sm text-text-secondary"
+                  >
+                    <Check
+                      size={16}
+                      className="shrink-0 text-primary"
+                      aria-hidden="true"
+                    />
+                    {title}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-1 text-sm text-text-secondary">
+                Nur Konto &amp; Sicherheit (immer aktiv)
+              </p>
+            )}
+          </div>
+        )}
 
         {denied && (
           <div className="mt-4 rounded-2xl bg-card p-4">
