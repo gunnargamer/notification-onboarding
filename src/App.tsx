@@ -14,12 +14,15 @@ export default function App() {
 
   const { screen } = state
   const overlayActive = screen === 'sheet' || screen === 'os-dialog'
+  // The OS prompt can come from the onboarding sheet or from a first opt-in in
+  // Settings — in the latter case it overlays Settings, with no sheet behind.
+  const osFromSettings = screen === 'os-dialog' && state.osPromptFrom === 'settings'
 
   // Splash is the login entry; the sheet and OS dialog render over the overview.
   const base =
     screen === 'splash' ? (
       <Splash />
-    ) : screen === 'settings' ? (
+    ) : screen === 'settings' || osFromSettings ? (
       <Settings />
     ) : (
       <Overview />
@@ -33,7 +36,7 @@ export default function App() {
         overlayActive &&
         createPortal(
           <>
-            <Sheet />
+            {!osFromSettings && <Sheet />}
             {screen === 'os-dialog' && <OSDialog />}
           </>,
           overlayRoot,

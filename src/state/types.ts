@@ -37,6 +37,7 @@ export type TelemetryEventName =
   | 'settings_master_toggle'
   | 'settings_channel_toggle'
   | 'settings_expand'
+  | 'settings_os_prompt'
   | 'os_banner_tap'
 
 export interface TelemetryEvent {

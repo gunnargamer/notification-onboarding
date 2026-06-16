@@ -15,6 +15,9 @@ export interface AppState {
   prefs: NotifPrefs
   events: TelemetryEvent[]
   flowMode: FlowMode
+  // Where the OS permission dialog was triggered from — decides what renders
+  // behind it ('sheet' = onboarding, 'settings' = first opt-in from Settings).
+  osPromptFrom: 'sheet' | 'settings'
 }
 
 export type Action =
@@ -25,10 +28,22 @@ export type Action =
   | { type: 'LATER'; via: 'button' | 'drag' }
   | { type: 'OS_ALLOW' }
   | { type: 'OS_DENY' }
+  | { type: 'SETTINGS_REQUEST_OS' }
   | { type: 'MASTER_TOGGLE'; id: CategoryId }
   | { type: 'CHANNEL_TOGGLE'; id: CategoryId; channel: Channel }
   | { type: 'LOG'; name: TelemetryEventName; detail?: Record<string, unknown> }
   | { type: 'RESET' }
+
+/** All non-locked categories off; locked ones (security) stay always-active. */
+function clearedCategories(
+  categories: NotifPrefs['categories'],
+): NotifPrefs['categories'] {
+  const next = { ...categories }
+  for (const id of Object.keys(next) as CategoryId[]) {
+    next[id] = Boolean(CATEGORIES[id].locked)
+  }
+  return next
+}
 
 function log(
   state: AppState,
@@ -74,6 +89,7 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         screen: 'os-dialog',
+        osPromptFrom: 'sheet',
         events: log(state, 'enable'),
       }
 
@@ -84,12 +100,22 @@ export function reducer(state: AppState, action: Action): AppState {
         prefs: {
           ...state.prefs,
           state: 'postponed',
-          // "Später" defers the decision — discard whatever was toggled in the
-          // sheet. Preferences are only saved when set manually in Settings
-          // (avatar → Benachrichtigungen → toggles).
-          categories: { ...DEFAULT_PREFS.categories },
+          // "Später" defers the decision — nothing is opted into. The sheet
+          // selection is discarded and every category starts off; preferences
+          // are only saved when set manually in Settings.
+          categories: clearedCategories(state.prefs.categories),
         },
         events: log(state, 'later', { via: action.via }),
+      }
+
+    case 'SETTINGS_REQUEST_OS':
+      // First opt-in from Settings: the user enabled a category but has not
+      // granted OS permission yet, so the system prompt appears on Back.
+      return {
+        ...state,
+        screen: 'os-dialog',
+        osPromptFrom: 'settings',
+        events: log(state, 'settings_os_prompt'),
       }
 
     case 'OS_ALLOW':
@@ -163,6 +189,7 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         // flowMode is a test config — it survives participant resets.
         flowMode: state.flowMode,
+        osPromptFrom: 'sheet',
         screen: 'splash',
         prefs: {
           ...DEFAULT_PREFS,

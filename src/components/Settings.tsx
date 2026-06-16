@@ -1,11 +1,25 @@
 import { ArrowLeft } from 'lucide-react'
 import { CATEGORY_ORDER } from '../state/defaults'
+import { CATEGORIES } from '../state/catalog'
 import { CategoryCard } from './CategoryCard'
 import { useApp } from '../state/AppContext'
 
 export function Settings() {
   const { state, dispatch } = useApp()
   const denied = state.prefs.osPermission === 'denied'
+
+  function handleBack() {
+    // Leaving Settings with a category enabled but no OS permission yet → the
+    // system prompt appears (first opt-in). Otherwise just go back.
+    const hasSelection = CATEGORY_ORDER.some(
+      (id) => !CATEGORIES[id].locked && state.prefs.categories[id],
+    )
+    if (hasSelection && state.prefs.osPermission === 'unset') {
+      dispatch({ type: 'SETTINGS_REQUEST_OS' })
+    } else {
+      dispatch({ type: 'SET_SCREEN', screen: 'overview' })
+    }
+  }
 
   return (
     <div className="flex h-full flex-col">
@@ -14,7 +28,7 @@ export function Settings() {
         <button
           type="button"
           aria-label="Zurück"
-          onClick={() => dispatch({ type: 'SET_SCREEN', screen: 'overview' })}
+          onClick={handleBack}
           className="flex h-touch w-touch items-center justify-center rounded-full text-text"
         >
           <ArrowLeft size={22} aria-hidden="true" />

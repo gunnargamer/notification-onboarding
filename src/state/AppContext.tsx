@@ -40,6 +40,7 @@ function init(): AppState {
     prefs: structuredClone(DEFAULT_PREFS),
     events: [],
     flowMode,
+    osPromptFrom: 'sheet',
   }
 }
 
