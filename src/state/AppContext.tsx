@@ -7,11 +7,11 @@ import {
   type ReactNode,
 } from 'react'
 import { reducer, type Action, type AppState } from './reducer'
+import { DEFAULT_PREFS } from './defaults'
 import type { FlowMode } from './types'
 import {
-  loadEvents,
+  clearAll,
   loadFlowMode,
-  loadPrefs,
   saveEvents,
   saveFlowMode,
   savePrefs,
@@ -27,12 +27,19 @@ function readFlowOverride(): FlowMode | null {
   }
 }
 
+/**
+ * Every page load starts the prototype fresh — identical to entering via the
+ * CTA. We wipe the persisted prefs/events and seed defaults; only the flow mode
+ * (chosen via ?flow= or persisted) is kept so moderators stay on their variant.
+ */
 function init(): AppState {
+  clearAll()
+  const flowMode = readFlowOverride() ?? loadFlowMode()
   return {
     screen: 'splash',
-    prefs: loadPrefs(),
-    events: loadEvents(),
-    flowMode: readFlowOverride() ?? loadFlowMode(),
+    prefs: structuredClone(DEFAULT_PREFS),
+    events: [],
+    flowMode,
   }
 }
 
