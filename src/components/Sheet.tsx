@@ -31,7 +31,10 @@ export function Sheet() {
 
   // Move focus into the sheet; trap Tab; Escape is intentionally inert.
   useEffect(() => {
-    panelRef.current?.focus()
+    // preventScroll: the panel starts at translateY(100%) (below the frame), so
+    // a scrolling focus would yank the whole frame down and back (the background
+    // appearing to "slide in"). Keep the background stable.
+    panelRef.current?.focus({ preventScroll: true })
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
         e.preventDefault() // accidental-dismiss protection

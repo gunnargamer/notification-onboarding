@@ -14,7 +14,7 @@ export function OSDialog() {
   const bodyId = 'os-dialog-body'
 
   useEffect(() => {
-    allowRef.current?.focus()
+    allowRef.current?.focus({ preventScroll: true })
     function onKeyDown(e: KeyboardEvent) {
       if (e.key !== 'Tab') return
       const panel = dialogRef.current
