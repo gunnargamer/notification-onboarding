@@ -79,7 +79,9 @@ export function Sheet() {
     }
   }
 
-  const translateY = entered ? drag : 9999
+  // Off-screen state slides by the sheet's own height (smooth), not a huge
+  // fixed pixel value; once entered, only the drag offset applies.
+  const sheetTransform = entered ? `translateY(${drag}px)` : 'translateY(100%)'
 
   return (
     <div className="pointer-events-auto absolute inset-0 z-30">
@@ -95,10 +97,12 @@ export function Sheet() {
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="absolute inset-x-0 bottom-0 flex max-h-[72%] flex-col rounded-t-sheet bg-surface outline-none"
+        className="absolute inset-x-0 bottom-0 flex max-h-[88%] flex-col rounded-t-sheet bg-surface outline-none"
         style={{
-          transform: `translateY(${translateY}px)`,
-          transition: dragging.current ? 'none' : 'transform 250ms ease-out',
+          transform: sheetTransform,
+          transition: dragging.current
+            ? 'none'
+            : 'transform 300ms cubic-bezier(0.32, 0.72, 0, 1)',
         }}
       >
         {/* Interactive drag handle. */}

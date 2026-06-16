@@ -6,3 +6,6 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 *.log
+
+# Claude Code personal/local config (may capture secrets)
+.claude/settings.local.json
