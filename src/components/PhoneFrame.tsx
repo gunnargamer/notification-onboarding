@@ -49,30 +49,44 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
   const areaRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
 
+  const deviceW = SCREEN_W + BEZEL * 2
+  const deviceH = SCREEN_H + BEZEL * 2
+  const PAD = 12 // breathing room around the device
+
   useLayoutEffect(() => {
     const area = areaRef.current
     if (!area) return
-    const deviceW = SCREEN_W + BEZEL * 2
-    const deviceH = SCREEN_H + BEZEL * 2
     const compute = () => {
-      const s = Math.min(area.clientWidth / deviceW, area.clientHeight / deviceH, 1)
+      // clientWidth/Height include the area's padding, so subtract it to get
+      // the space actually available for the device.
+      const availW = area.clientWidth - PAD * 2
+      const availH = area.clientHeight - PAD * 2
+      const s = Math.min(availW / deviceW, availH / deviceH, 1)
       setScale(s > 0 ? s : 1)
     }
     compute()
     const ro = new ResizeObserver(compute)
     ro.observe(area)
     return () => ro.disconnect()
-  }, [])
+  }, [deviceW, deviceH])
 
   return (
     <div
       ref={areaRef}
-      className="flex min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#F1F1F1] p-3"
+      className="flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#F1F1F1]"
+      style={{ padding: PAD }}
     >
-      <div style={{ transform: `scale(${scale})` }} className="shrink-0">
+      {/* The wrapper reserves the *scaled* footprint so the transform doesn't
+          leave full-size layout space (which would overflow and scroll). */}
+      <div style={{ width: deviceW * scale, height: deviceH * scale }} className="shrink-0">
         <div
           id="phone-frame"
-          style={{ width: SCREEN_W + BEZEL * 2, height: SCREEN_H + BEZEL * 2 }}
+          style={{
+            width: deviceW,
+            height: deviceH,
+            transform: `scale(${scale})`,
+            transformOrigin: 'top left',
+          }}
           className="relative overflow-hidden rounded-[54px] border-[11px] border-black bg-black shadow-2xl"
         >
           {/* Screen */}
