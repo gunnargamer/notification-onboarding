@@ -19,15 +19,15 @@ export const CATEGORIES: Record<CategoryId, CategoryMeta> = {
   },
   service: {
     id: 'service',
-    title: 'Service & Tarif',
+    title: 'Tarif & Verbrauch',
     description: 'Updates zu Ihrem Tarif und Datenverbrauch',
-    scenario: 'Updates zu Tarif und Datenverbrauch',
+    scenario: 'Tarif-Updates und Verbrauchshinweise',
   },
   system: {
     id: 'system',
     title: 'System & Wartung',
     description: 'Informationen zu Wartungsarbeiten und Störungen',
-    scenario: 'Wartungsarbeiten und Störungen',
+    scenario: 'Wartung und Störungen',
   },
   security: {
     id: 'security',

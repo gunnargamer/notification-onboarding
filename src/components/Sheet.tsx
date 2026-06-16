@@ -124,7 +124,7 @@ export function Sheet() {
             Benachrichtigungen
           </h2>
           <p className="mt-1 text-center text-base text-text-secondary">
-            Wählen Sie, worüber wir Sie informieren.
+            Wählen Sie, worüber wir Sie informieren dürfen.
           </p>
         </div>
 
@@ -171,7 +171,7 @@ export function Sheet() {
         {/* Reassurance + footer. */}
         <div className="border-t border-black/5 px-5 pb-5 pt-3">
           <p className="text-sm text-text-secondary">
-            Sie können das jederzeit in den Einstellungen ändern.
+            Sie können Ihre Auswahl jederzeit in den Einstellungen ändern.
           </p>
           <div className="mt-3 flex justify-end gap-button-gap">
             <Button
@@ -181,7 +181,7 @@ export function Sheet() {
               Später
             </Button>
             <Button onClick={() => dispatch({ type: 'ENABLE' })}>
-              Benachrichtigungen aktivieren
+              Benachrichtigungen erlauben
             </Button>
           </div>
         </div>
