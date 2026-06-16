@@ -1,5 +1,17 @@
-import { ArrowRight, House, MessageCircleQuestion, Sparkles } from 'lucide-react'
+import { useState } from 'react'
+import {
+  ArrowRight,
+  Bell,
+  ChevronRight,
+  CreditCard,
+  House,
+  LogOut,
+  MessageCircleQuestion,
+  Sparkles,
+  User,
+} from 'lucide-react'
 import { useApp } from '../state/AppContext'
+import { BottomSheet } from './BottomSheet'
 import avatarUrl from '../assets/home/avatar.jpg'
 import iphoneUrl from '../assets/home/iphone.png'
 import promoUrl from '../assets/home/promo.png'
@@ -10,12 +22,13 @@ const SEGMENTS = ['Mobile', 'Internet', 'TV'] as const
 /**
  * MeinMagenta-style home (Figma node 321:17657), in German.
  * Two prototype hooks are preserved:
- *  - avatar (top-right, with notification badge) → notification Settings
+ *  - avatar (top-right) → "Mein Konto" bottom sheet (→ notification Settings)
  *  - "Rechnungen verwalten" card → contextual sheet (V2: fires while `unset`)
  */
 export function Overview() {
   const { state, dispatch } = useApp()
   const contextualTrigger = state.prefs.state === 'unset'
+  const [accountOpen, setAccountOpen] = useState(false)
 
   return (
     <div className="flex h-full flex-col bg-surface">
@@ -27,8 +40,8 @@ export function Overview() {
         </div>
         <button
           type="button"
-          aria-label="Benachrichtigungseinstellungen"
-          onClick={() => dispatch({ type: 'SET_SCREEN', screen: 'settings' })}
+          aria-label="Mein Konto"
+          onClick={() => setAccountOpen(true)}
           className="relative mt-2 h-12 w-12 shrink-0"
         >
           <img
@@ -152,6 +165,74 @@ export function Overview() {
           </div>
         ))}
       </nav>
+
+      {accountOpen && (
+        <BottomSheet title="Mein Konto" onClose={() => setAccountOpen(false)}>
+          {/* Profile summary */}
+          <div className="flex items-center gap-3 pb-1 pt-1">
+            <img
+              src={avatarUrl}
+              alt=""
+              className="h-14 w-14 rounded-full object-cover"
+            />
+            <div>
+              <p className="text-lg font-bold text-text">Annabelle Meyer</p>
+              <p className="text-sm text-text-secondary">+49 151 222 2222</p>
+            </div>
+          </div>
+
+          {/* Account rows */}
+          <div className="mt-4 overflow-hidden rounded-2xl bg-card">
+            {[
+              {
+                icon: Bell,
+                label: 'Benachrichtigungen',
+                onClick: () => {
+                  setAccountOpen(false)
+                  dispatch({ type: 'SET_SCREEN', screen: 'settings' })
+                },
+              },
+              { icon: User, label: 'Persönliche Daten', onClick: undefined },
+              {
+                icon: CreditCard,
+                label: 'Zahlungen & Rechnungen',
+                onClick: undefined,
+              },
+            ].map(({ icon: Icon, label, onClick }, i) => (
+              <button
+                key={label}
+                type="button"
+                onClick={onClick}
+                className={[
+                  'flex w-full items-center gap-3 px-4 py-3.5 text-left',
+                  i > 0 ? 'border-t border-black/5' : '',
+                ].join(' ')}
+              >
+                <Icon size={20} className="text-text-secondary" aria-hidden="true" />
+                <span className="flex-1 text-base text-text">{label}</span>
+                <ChevronRight
+                  size={18}
+                  className="text-text-secondary"
+                  aria-hidden="true"
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Logout → back to splash */}
+          <button
+            type="button"
+            onClick={() => {
+              setAccountOpen(false)
+              dispatch({ type: 'SET_SCREEN', screen: 'splash' })
+            }}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-pill bg-card py-3 text-base font-medium text-primary"
+          >
+            <LogOut size={18} aria-hidden="true" />
+            Abmelden
+          </button>
+        </BottomSheet>
+      )}
     </div>
   )
 }

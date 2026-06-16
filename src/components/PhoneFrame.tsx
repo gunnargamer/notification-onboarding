@@ -67,7 +67,7 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
     <div
       ref={areaRef}
-      className="flex min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#0b1020] p-3"
+      className="flex min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#F1F1F1] p-3"
     >
       <div style={{ transform: `scale(${scale})` }} className="shrink-0">
         <div
