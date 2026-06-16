@@ -81,7 +81,14 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         screen: 'overview',
-        prefs: { ...state.prefs, state: 'postponed' },
+        prefs: {
+          ...state.prefs,
+          state: 'postponed',
+          // "Später" defers the decision — discard whatever was toggled in the
+          // sheet. Preferences are only saved when set manually in Settings
+          // (avatar → Benachrichtigungen → toggles).
+          categories: { ...DEFAULT_PREFS.categories },
+        },
         events: log(state, 'later', { via: action.via }),
       }
 
