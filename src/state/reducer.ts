@@ -122,14 +122,7 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         screen: 'overview',
-        prefs: {
-          ...state.prefs,
-          state: 'enabled',
-          osPermission: 'granted',
-          // Freeze the categories chosen at the moment of the first opt-in.
-          initialOptIn:
-            state.prefs.initialOptIn ?? { ...state.prefs.categories },
-        },
+        prefs: { ...state.prefs, state: 'enabled', osPermission: 'granted' },
         events: log(state, 'os_allow'),
       }
 

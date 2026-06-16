@@ -6,7 +6,6 @@ export const KEYS = {
   os: 'notif_os',
   categories: 'notif_categories',
   channels: 'notif_channels',
-  initialOptIn: 'notif_initial_optin',
   events: 'notif_events',
   flowMode: 'notif_flowmode',
 } as const
@@ -34,7 +33,6 @@ export function loadPrefs(): NotifPrefs {
   return {
     state: readJSON(KEYS.state, DEFAULT_PREFS.state),
     osPermission: readJSON(KEYS.os, DEFAULT_PREFS.osPermission),
-    initialOptIn: readJSON(KEYS.initialOptIn, DEFAULT_PREFS.initialOptIn),
     categories,
     channels,
   }
@@ -47,7 +45,6 @@ export function savePrefs(prefs: NotifPrefs): void {
     localStorage.setItem(KEYS.os, JSON.stringify(prefs.osPermission))
     localStorage.setItem(KEYS.categories, JSON.stringify(prefs.categories))
     localStorage.setItem(KEYS.channels, JSON.stringify(prefs.channels))
-    localStorage.setItem(KEYS.initialOptIn, JSON.stringify(prefs.initialOptIn))
   } catch {
     // best-effort; prototype only
   }
@@ -83,7 +80,6 @@ export function clearAll(): void {
     localStorage.removeItem(KEYS.os)
     localStorage.removeItem(KEYS.categories)
     localStorage.removeItem(KEYS.channels)
-    localStorage.removeItem(KEYS.initialOptIn)
   } catch {
     // best-effort
   }

@@ -32,7 +32,6 @@ export const DEFAULT_CHANNELS: Record<CategoryId, Record<Channel, boolean>> = {
 export const DEFAULT_PREFS: NotifPrefs = {
   state: 'unset',
   osPermission: 'unset',
-  initialOptIn: null,
   categories: { ...DEFAULT_CATEGORIES },
   channels: {
     billing: { ...DEFAULT_CHANNELS.billing },
